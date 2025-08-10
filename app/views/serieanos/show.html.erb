@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @serieano %>
+
+<div>
+  <%= link_to "Edit this serieano", edit_serieano_path(@serieano) %> |
+  <%= link_to "Back to serieanos", serieanos_path %>
+
+  <%= button_to "Destroy this serieano", @serieano, method: :delete %>
+</div>

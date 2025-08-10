@@ -1,0 +1,22 @@
+<%= form_with(model: instituica) do |form| %>
+  <% if instituica.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(instituica.errors.count, "error") %> prohibited this instituica from being saved:</h2>
+
+      <ul>
+        <% instituica.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome, style: "display: block" %>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

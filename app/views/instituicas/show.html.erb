@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @instituica %>
+
+<div>
+  <%= link_to "Edit this instituica", edit_instituica_path(@instituica) %> |
+  <%= link_to "Back to instituicas", instituicas_path %>
+
+  <%= button_to "Destroy this instituica", @instituica, method: :delete %>
+</div>

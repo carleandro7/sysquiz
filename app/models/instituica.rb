@@ -1,0 +1,2 @@
+class Instituica < ApplicationRecord
+end
