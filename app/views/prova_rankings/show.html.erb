@@ -1,0 +1,118 @@
+
+<style>
+  .ranking-bg {
+    background: #183642;
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    color: #fff;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+  .ranking-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffe066;
+    text-align: center;
+    margin-bottom: 0.2em;
+    text-shadow: 0 2px 8px #0002;
+  }
+  .ranking-year {
+    font-size: 2.2rem;
+    color: #ffb300;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+  .ranking-table {
+    width: 100%;
+    background: #22404d;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px #0003;
+  }
+  .ranking-table th, .ranking-table td {
+    padding: 0.7em 0.5em;
+    text-align: center;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #2c5364;
+  }
+  .ranking-table th {
+    background: #183642;
+    color: #ffe066;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border: none;
+  }
+  .ranking-table tr.top1 {
+    background: linear-gradient(90deg, #ffe066 0%, #fffbe6 100%);
+    color: #183642;
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+  .ranking-table tr.top2, .ranking-table tr.top3 {
+    background: #2c5364;
+    color: #ffe066;
+    font-weight: 700;
+  }
+  .ranking-table tr {
+    transition: background 0.2s;
+  }
+  .ranking-table tr:hover {
+    background: #355c7d;
+    color: #fff;
+  }
+  .ranking-total {
+    background: #ffe066;
+    color: #183642;
+    font-weight: bold;
+    border-radius: 1.2rem;
+    padding: 0.5em 1.2em;
+    font-size: 1.2rem;
+    margin-left: 0.5em;
+  }
+  .ranking-legend {
+    font-size: 0.95rem;
+    color: #ffe066;
+    margin-top: 1.5em;
+    text-align: center;
+  }
+</style>
+
+<div class="ranking-bg">
+  <div class="ranking-title">
+    <span style="font-size:2.2rem;vertical-align:middle;">&#x1F451;</span> RANKING
+  </div>
+  <div class="ranking-year"><%= Time.current.year %></div>
+  <div class="text-center mb-4">
+    <span class="fs-5">Prova: <b><%= @prova.titulo %></b></span>
+  </div>
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Aluno</th>
+        <th>Acertos</th>
+        <th>Total</th>
+        <th>Desempenho <span class="ranking-total">%</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @ranking.each_with_index do |r, idx| %>
+        <tr class="<%= 'top1' if idx==0 %><%= ' top2' if idx==1 %><%= ' top3' if idx==2 %>">
+          <td><b><%= idx+1 %></b></td>
+          <td style="text-align:left;"><%= r[:aluno].nome %></td>
+          <td><%= r[:corretas] %></td>
+          <td><%= r[:total] %></td>
+          <td><span class="ranking-total"><%= r[:percentual] %></span></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="ranking-legend">
+    <b>Pontuação:</b> Cada acerto vale 1 ponto. O ranking é ordenado pelo percentual de acertos.<br>
+    <span style="color:#fff;">Atualizado em <%= Time.current.strftime('%d/%m/%Y %H:%M') %></span>
+  </div>
+</div>

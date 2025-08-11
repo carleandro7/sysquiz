@@ -1,10 +1,23 @@
-Rails.application.routes.draw do
+
+  # Redireciona /aluno/login para o login padrão do Devise para alunos
+
+  Rails.application.routes.draw do
+    resources :provalunos
+    # Redireciona /alunos/login para o login padrão do Devise para alunos
+    get 'alunos/login', to: redirect('/alunos/sign_in')
+  devise_for :alunos
+  # Dashboard do aluno
+  get 'aluno/dashboard', to: 'aluno_dashboard#index', as: :aluno_dashboard
+
   devise_for :users
 
-  # Login customizado para alunos
-  get  "aluno/login",  to: "aluno_sessions#new",     as: :aluno_login
-  post "aluno/login",  to: "aluno_sessions#create"
-  delete "aluno/logout", to: "aluno_sessions#destroy", as: :aluno_logout
+  # Redireciona /users/login para o login padrão do Devise
+  get 'users/login', to: redirect('/users/sign_in')
+
+  # Rota do ranking da prova
+  get 'provas/:id/ranking', to: 'prova_rankings#show', as: :prova_ranking
+
+
 
   namespace :admin do
     root to: "dashboard#index"

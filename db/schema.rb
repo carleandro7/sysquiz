@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_11_131000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,8 +23,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.string "password_digest"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_alunos_on_email", unique: true
     t.index ["escola_id"], name: "index_alunos_on_escola_id"
     t.index ["instituica_id"], name: "index_alunos_on_instituica_id"
+    t.index ["reset_password_token"], name: "index_alunos_on_reset_password_token", unique: true
     t.index ["serieano_id"], name: "index_alunos_on_serieano_id"
     t.index ["username"], name: "index_alunos_on_username", unique: true
   end
@@ -44,6 +51,29 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "provalunos", force: :cascade do |t|
+    t.bigint "prova_id", null: false
+    t.bigint "aluno_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "inicio"
+    t.index ["aluno_id"], name: "index_provalunos_on_aluno_id"
+    t.index ["prova_id"], name: "index_provalunos_on_prova_id"
+  end
+
+  create_table "provaquestaos", force: :cascade do |t|
+    t.bigint "prova_id", null: false
+    t.bigint "aluno_id", null: false
+    t.bigint "questao_id", null: false
+    t.string "resposta"
+    t.string "embaralhada"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aluno_id"], name: "index_provaquestaos_on_aluno_id"
+    t.index ["prova_id"], name: "index_provaquestaos_on_prova_id"
+    t.index ["questao_id"], name: "index_provaquestaos_on_questao_id"
+  end
+
   create_table "provas", force: :cascade do |t|
     t.string "titulo"
     t.text "descricao"
@@ -52,6 +82,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
     t.bigint "instituica_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "tempo_limite", default: 120, null: false
+    t.datetime "inicio"
+    t.datetime "fim"
     t.index ["instituica_id"], name: "index_provas_on_instituica_id"
   end
 
@@ -110,6 +143,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
   add_foreign_key "alunos", "instituicas"
   add_foreign_key "alunos", "serieanos"
   add_foreign_key "escolas", "instituicas"
+  add_foreign_key "provalunos", "alunos"
+  add_foreign_key "provalunos", "provas"
+  add_foreign_key "provaquestaos", "alunos"
+  add_foreign_key "provaquestaos", "provas"
+  add_foreign_key "provaquestaos", "questaos"
   add_foreign_key "provas", "instituicas"
   add_foreign_key "questaos", "instituicas"
   add_foreign_key "questaos", "provas"

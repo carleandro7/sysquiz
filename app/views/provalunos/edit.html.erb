@@ -1,0 +1,64 @@
+<!-- Stimulus/importmap/controller code removed. Only pure JS timer remains. -->
+<div class="dashboard-bg" style="min-height:100vh;">
+  <% if @provaquestaos.all? { |pq| pq.resposta.present? } %>
+    <div class="dashboard-card" style="background:#ffe066;color:#183642;max-width:1100px;margin:3em auto 2em auto;">
+      <span style="font-size:2.2rem;vertical-align:middle;">&#9888;&#65039;</span><br>
+      <b>Você já respondeu esta prova!</b><br>
+      Não é possível visualizar ou alterar suas respostas.<br>
+      <a href="<%= aluno_dashboard_path %>" class="btn btn-warning mt-3">Voltar ao Dashboard</a>
+    </div>
+  <% else %>
+    <div class="dashboard-title" style="margin-top:2em;">
+      <span style="font-size:2.2rem;vertical-align:middle;">&#128221;</span> Responder Prova: <%= @provaluno.prova.titulo %>
+    </div>
+    <div class="dashboard-card aluno-prova-card" style="max-width:1100px;margin:2em auto 2em auto;">
+      <div id="cronometro-prova" data-inicio="<%= (@provaluno.inicio || Time.current).iso8601 %>">
+        <div style="font-size:1.3em;margin-bottom:1em;">
+          Tempo decorrido: <span id="timer-prova" style="font-weight:bold;color:#fff;">00:00:00</span>
+        </div>
+        <%= form_with url: provaluno_path(@provaluno), method: :put do |f| %>
+        <ol style="padding-left:0;">
+          <% @provaquestaos.each do |pq| %>
+            <li style="margin-bottom:1.5em;list-style:decimal inside;">
+              <strong><%= pq.questao.enuciado %></strong>
+              <div style="margin-top:0.5em;">
+                <% (pq.embaralhada || %w[a b c d e].select { |l| pq.questao.send("letra_#{l}").present? }.join).chars.each do |letra| %>
+                  <% alternativa = pq.questao.send("letra_#{letra}") %>
+                  <% next if alternativa.blank? %>
+                  <div class="form-check" style="margin-bottom:0.5em;">
+                    <%= radio_button_tag "provaquestaos[#{pq.id}][resposta]", letra, pq.resposta == letra, class: 'form-check-input', id: "pq_#{pq.id}_#{letra}" %>
+                    <%= label_tag "pq_#{pq.id}_#{letra}", "#{letra.upcase}) #{alternativa}", class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ol>
+          <%= f.submit 'Salvar Respostas', class: 'btn btn-primary', style: 'margin-top:1em;' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<script>
+// Pure JS timer for prova
+document.addEventListener("DOMContentLoaded", function() {
+  var cronometroDiv = document.getElementById("cronometro-prova");
+  if (!cronometroDiv) return;
+  var timerSpan = document.getElementById("timer-prova");
+  var inicio = new Date(cronometroDiv.dataset.inicio);
+  function updateTimer() {
+    var agora = new Date();
+    var decorrido = Math.floor((agora - inicio) / 1000);
+    var horas = Math.floor(decorrido / 3600);
+    var min = Math.floor((decorrido % 3600) / 60);
+    var seg = decorrido % 60;
+    timerSpan.textContent =
+      (horas < 10 ? '0' : '') + horas + ':' +
+      (min < 10 ? '0' : '') + min + ':' +
+      (seg < 10 ? '0' : '') + seg;
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+});
+</script>

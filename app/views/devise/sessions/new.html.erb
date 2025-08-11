@@ -1,0 +1,126 @@
+
+<style>
+  .login-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #f8fbff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 60, 120, 0.10);
+    padding: 32px 32px 24px 32px;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+  }
+  .login-title {
+    color: #1565c0;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .login-form label {
+    color: #1976d2;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .login-form input[type="email"],
+  .login-form input[type="password"],
+  .login-form input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #90caf9;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    font-size: 1rem;
+    background: #e3f2fd;
+    transition: border 0.2s;
+  }
+  .login-form input[type="email"]:focus,
+  .login-form input[type="password"]:focus,
+  .login-form input[type="text"]:focus {
+    border: 1.5px solid #1976d2;
+    outline: none;
+  }
+  .login-form .remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .login-form .remember label {
+    margin-left: 8px;
+    color: #1976d2;
+    font-weight: 400;
+  }
+  .login-form .actions {
+    text-align: center;
+  }
+  .login-form input[type="submit"] {
+    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(21,101,192,0.08);
+    transition: background 0.2s;
+  }
+  .login-form input[type="submit"]:hover {
+    background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+  }
+  .login-links {
+    text-align: center;
+    margin-top: 18px;
+  }
+  .login-links a {
+    color: #1976d2;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .login-links a:hover {
+    color: #0d47a1;
+    text-decoration: underline;
+  }
+  .alert {
+    color: #fff;
+    background: #e53935;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 18px;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+</style>
+
+<div class="login-container">
+  <div class="login-title">Login do Sistema</div>
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <% end %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
+
+  <label for="aluno_username">Usuário</label>
+  <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder: 'Digite seu usuário' %>
+
+    <label for="user_password">Senha</label>
+    <%= f.password_field :password, autocomplete: "current-password" %>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="remember">
+        <%= f.check_box :remember_me %>
+        <label for="user_remember_me">Lembrar-me</label>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Entrar" %>
+    </div>
+  <% end %>
+  <div class="login-links">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
