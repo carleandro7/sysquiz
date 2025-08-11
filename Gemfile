@@ -38,7 +38,49 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+
+# Autenticação de usuários
+
+
+# auditoria
+gem "audited"
+# salva varias tabelas
+gem "cocoon"
+# paginação
+gem "kaminari"
+
+# excel
+gem "caxlsx"
+gem "caxlsx_rails"
+
+# pdf para os relatorios
+gem "prawn"
+gem "prawn-table"
+
+
+# gerar layout com bootstrap
+gem "bootstrap-sass-extras"
+
+# validar arquivos
+gem "active_storage_validations"
+
+gem "rqrcode"
+gem "prawn-qrcode"
+
+# login
+gem "devise"
+
+gem "activerecord-import"
+
+gem "fastimage"
+
+gem "pdf-reader"
+
+gem "combine_pdf"
+
+gem "digest-crc"
+
+gem "sassc"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <h1>Aluno: <%= @aluno.nome %></h1>
+  <p><strong>ID:</strong> <%= @aluno.id %></p>
+  <p><strong>Usuário:</strong> <%= @aluno.username %></p>
+  <p><strong>Série:</strong> <%= @aluno.serieano&.nome %></p>
+  <div class="mt-3">
+    <%= link_to 'Editar', edit_admin_aluno_path(@aluno), class: 'btn btn-warning' %>
+    <%= link_to 'Voltar', admin_alunos_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

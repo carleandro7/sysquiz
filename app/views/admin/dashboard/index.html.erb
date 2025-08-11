@@ -1,0 +1,46 @@
+<div class="container mt-5">
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <h1 class="display-4 fw-bold text-primary">Painel do Administrador</h1>
+      <p class="lead">Bem-vindo, <%= current_user.email %>!</p>
+    </div>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-3">
+      <div class="card text-bg-primary h-100 shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title">Escolas</h5>
+          <p class="card-text display-6"><%= Escola.count %></p>
+          <%= link_to 'Gerenciar', admin_escolas_path, class: 'btn btn-light' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-bg-success h-100 shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title">Séries</h5>
+          <p class="card-text display-6"><%= Serieano.count %></p>
+          <%= link_to 'Gerenciar', admin_serieanos_path, class: 'btn btn-light' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-bg-warning h-100 shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title">Alunos</h5>
+          <p class="card-text display-6"><%= Aluno.count %></p>
+          <%= link_to 'Gerenciar', admin_alunos_path, class: 'btn btn-light' %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card text-bg-danger h-100 shadow">
+        <div class="card-body text-center">
+          <h5 class="card-title">Provas</h5>
+          <p class="card-text display-6"><%= Prova.count %></p>
+          <%= link_to 'Gerenciar', admin_provas_path, class: 'btn btn-light' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_10_025552) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_031000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,9 +21,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_025552) do
     t.bigint "serieano_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.string "password_digest"
     t.index ["escola_id"], name: "index_alunos_on_escola_id"
     t.index ["instituica_id"], name: "index_alunos_on_instituica_id"
     t.index ["serieano_id"], name: "index_alunos_on_serieano_id"
+    t.index ["username"], name: "index_alunos_on_username", unique: true
   end
 
   create_table "escolas", force: :cascade do |t|
@@ -43,7 +46,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_025552) do
 
   create_table "provas", force: :cascade do |t|
     t.string "titulo"
-    t.text "descrica"
+    t.text "descricao"
     t.datetime "data_inicio"
     t.datetime "data_fim"
     t.bigint "instituica_id", null: false
@@ -93,7 +96,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_10_025552) do
     t.bigint "instituica_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["instituica_id"], name: "index_users_on_instituica_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "alunos", "escolas"

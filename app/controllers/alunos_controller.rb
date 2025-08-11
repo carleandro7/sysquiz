@@ -25,7 +25,14 @@ class AlunosController < ApplicationController
 
     respond_to do |format|
       if @aluno.save
-        format.html { redirect_to @aluno, notice: "Aluno was successfully created." }
+        # Exibir username e senha gerados (se senha foi gerada automaticamente)
+        senha_gerada = @aluno.saved_change_to_password_digest? && @aluno.previous_changes["password_digest"]
+        msg = "Aluno criado com sucesso. "
+        msg += "Usuário: #{@aluno.username}"
+        if senha_gerada
+          msg += " | Senha: senha temporária gerada. Altere na primeira vez que acessar."
+        end
+        format.html { redirect_to @aluno, notice: msg }
         format.json { render :show, status: :created, location: @aluno }
       else
         format.html { render :new, status: :unprocessable_entity }

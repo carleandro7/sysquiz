@@ -1,6 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @aluno %>
+
+<div class="bg-white/80 rounded-xl shadow-lg p-6 max-w-lg mx-auto mt-6">
+  <h2 class="text-xl font-bold mb-4">Dados do Aluno</h2>
+  <p><strong>Nome:</strong> <%= @aluno.nome %></p>
+  <p><strong>Usuário:</strong> <%= @aluno.username %></p>
+  <% if notice&.include?("Senha:") %>
+    <p class="text-red-600 font-bold"><%= notice.split("|").last %></p>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Edit this aluno", edit_aluno_path(@aluno) %> |

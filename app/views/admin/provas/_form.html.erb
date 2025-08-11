@@ -1,0 +1,29 @@
+<%= form_with(model: [:admin, prova], local: true, class: 'mt-3') do |form| %>
+  <div class="mb-3">
+    <%= form.label :titulo, 'Título', class: 'form-label' %>
+    <%= form.text_field :titulo, class: 'form-control', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :descrica, 'Descrição', class: 'form-label' %>
+    <%= form.text_area :descrica, class: 'form-control', rows: 3 %>
+  </div>
+
+  <h4 class="mt-4">Questões</h4>
+  <div id="questaos">
+    <%= form.fields_for :questaos do |questao_form| %>
+      <%= render 'questao_fields', f: questao_form %>
+    <% end %>
+    <div class="mb-3">
+      <%= link_to_add_association 'Adicionar Questão', form, :questaos, class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="mb-3">
+    <%= form.label :escola_id, 'Escola', class: 'form-label' %>
+    <%= form.collection_select :escola_id, Escola.all, :id, :nome, { prompt: 'Selecione a escola' }, class: 'form-select', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :serieano_id, 'Série', class: 'form-label' %>
+    <%= form.collection_select :serieano_id, Serieano.all, :id, :nome, { prompt: 'Selecione a série' }, class: 'form-select', required: true %>
+  </div>
+  <%= form.submit class: 'btn btn-success' %>
+<% end %>

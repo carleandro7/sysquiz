@@ -1,0 +1,35 @@
+<div class="nested-fields border rounded p-3 mb-3 bg-light">
+  <div class="mb-2">
+    <%= f.label :enuciado, 'Enunciado', class: 'form-label' %>
+    <%= f.text_field :enuciado, class: 'form-control', required: true %>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= f.label :letra_a, 'A', class: 'form-label' %>
+      <%= f.text_field :letra_a, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= f.label :letra_b, 'B', class: 'form-label' %>
+      <%= f.text_field :letra_b, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= f.label :letra_c, 'C', class: 'form-label' %>
+      <%= f.text_field :letra_c, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= f.label :letra_d, 'D', class: 'form-label' %>
+      <%= f.text_field :letra_d, class: 'form-control' %>
+    </div>
+    <div class="col">
+      <%= f.label :letra_e, 'E', class: 'form-label' %>
+      <%= f.text_field :letra_e, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="mt-2">
+    <%= f.label :alternativa_correta, 'Alternativa Correta', class: 'form-label' %>
+    <%= f.select :alternativa_correta, [['A','A'],['B','B'],['C','C'],['D','D'],['E','E']], {}, class: 'form-select' %>
+  </div>
+  <div class="mt-2">
+    <%= link_to_remove_association 'Remover Questão', f, class: 'btn btn-danger btn-sm' %>
+  </div>
+</div>

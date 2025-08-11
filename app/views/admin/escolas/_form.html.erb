@@ -1,0 +1,11 @@
+<%= form_with(model: [:admin, escola], local: true, class: 'mt-3') do |form| %>
+  <div class="mb-3">
+    <%= form.label :nome, 'Nome', class: 'form-label' %>
+    <%= form.text_field :nome, class: 'form-control', required: true %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :instituica_id, 'Instituição', class: 'form-label' %>
+    <%= form.collection_select :instituica_id, Instituica.all, :id, :nome, { prompt: 'Selecione a instituição' }, class: 'form-select', required: true %>
+  </div>
+  <%= form.submit class: 'btn btn-success' %>
+<% end %>
