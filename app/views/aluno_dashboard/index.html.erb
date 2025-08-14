@@ -127,7 +127,12 @@
   <div class="dashboard-title">
     <span style="font-size:2.2rem;vertical-align:middle;">&#x1F393;</span> Painel do Aluno
   </div>
-  <div class="dashboard-welcome">Bem-vindo, <b><%= @aluno.nome %></b>!</div>
+  <div class="dashboard-welcome">
+    Bem-vindo, <b><%= @aluno.nome %></b>!
+    <span style="margin-left:1em; vertical-align:middle; display:inline-block;">
+      <%= button_to 'Sair', destroy_aluno_session_path, method: :delete, class: 'dashboard-btn-outline', style: 'padding:0.3em 0.8em; font-size:1em; width:auto; min-width:0;' %>
+    </span>
+  </div>
   <div class="dashboard-section">Provas Disponíveis</div>
   <div class="dashboard-cards-row">
     <% @provas.each do |prova| %>

@@ -101,24 +101,23 @@
   <% if flash[:alert] %>
     <div class="alert"><%= flash[:alert] %></div>
   <% end %>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
+      <label for="user_email">Email do Administrador</label>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Digite seu email' %>
 
-  <label for="user_email">Email do Administrador</label>
-  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Digite seu email' %>
+      <label for="user_password">Senha</label>
+      <%= f.password_field :password, autocomplete: "current-password" %>
 
-    <label for="user_password">Senha</label>
-    <%= f.password_field :password, autocomplete: "current-password" %>
+      <% if devise_mapping.rememberable? %>
+        <div class="remember">
+          <%= f.check_box :remember_me %>
+          <label for="user_remember_me">Lembrar-me</label>
+        </div>
+      <% end %>
 
-    <% if devise_mapping.rememberable? %>
-      <div class="remember">
-        <%= f.check_box :remember_me %>
-        <label for="user_remember_me">Lembrar-me</label>
+      <div class="actions">
+        <%= f.submit "Entrar" %>
       </div>
     <% end %>
-
-    <div class="actions">
-      <%= f.submit "Entrar" %>
-    </div>
-  <% end %>
 
 </div>

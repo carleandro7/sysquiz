@@ -19,7 +19,7 @@
           <%= link_to 'Provas', admin_provas_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link', data: { turbo_method: :delete, confirm: 'Deseja sair?' } %>
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
         </li>
       </ul>
     </div>
