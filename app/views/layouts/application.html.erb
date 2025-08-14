@@ -76,7 +76,6 @@
 
   <body>
     <header>
-      <h1>Sysquiz</h1>
       <div style="margin-top: 1rem;">
         <% if user_signed_in? %>
           <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm', data: { turbo_method: :delete, confirm: 'Deseja sair?' } %>

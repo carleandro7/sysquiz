@@ -3,19 +3,23 @@
 
   Rails.application.routes.draw do
     resources :provalunos
-    # Redireciona /alunos/login para o login padrão do Devise para alunos
-    get 'alunos/login', to: redirect('/alunos/sign_in')
-  devise_for :alunos
-  # Dashboard do aluno
-  get 'aluno/dashboard', to: 'aluno_dashboard#index', as: :aluno_dashboard
+  # Redireciona /alunos/login para o login padrão do Devise para alunos
 
-  devise_for :users
+
+  # Dashboard do aluno
+  get "aluno/dashboard", to: "aluno_dashboard#index", as: :aluno_dashboard
+
 
   # Redireciona /users/login para o login padrão do Devise
-  get 'users/login', to: redirect('/users/sign_in')
+  devise_for :alunos, controllers: {
+    sessions: "alunos/sessions"
+  }
+  devise_for :users, controllers: {
+    sessions: "users/sessions"
+  }
 
   # Rota do ranking da prova
-  get 'provas/:id/ranking', to: 'prova_rankings#show', as: :prova_ranking
+  get "provas/:id/ranking", to: "prova_rankings#show", as: :prova_ranking
 
 
 
@@ -34,7 +38,7 @@
   resources :escolas
   resources :instituicas
 
-  root "alunos#index"
+  root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

@@ -1,7 +1,7 @@
 /* Garantir cards verdes no dashboard do aluno */
 .aluno-prova-card {
-	background: linear-gradient(135deg, #1d9c47 0%, #0bc8a5 100%) !important;
-	color: #fff !important;
+	background: linear-gradient(135deg, #eff1f0 0%, #aeb8b6 100%) !important;
+	color: #000 !important;
 	border-radius: 2rem !important;
 	border: none !important;
 	box-shadow: 0 6px 32px 0 rgba(34,197,94,0.18), 0 1.5px 6px 0 rgba(0,0,0,0.08);

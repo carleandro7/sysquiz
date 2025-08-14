@@ -97,14 +97,14 @@
 </style>
 
 <div class="login-container">
-  <div class="login-title">Login do Sistema</div>
+  <div class="login-title">Login no QuizInfoEdu</div>
   <% if flash[:alert] %>
     <div class="alert"><%= flash[:alert] %></div>
   <% end %>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
 
-  <label for="aluno_username">Usuário</label>
-  <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder: 'Digite seu usuário' %>
+  <label for="user_username">Usuário do Aluno</label>
+  <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'form-control', placeholder: 'Digite seu email' %>
 
     <label for="user_password">Senha</label>
     <%= f.password_field :password, autocomplete: "current-password" %>
@@ -120,7 +120,5 @@
       <%= f.submit "Entrar" %>
     </div>
   <% end %>
-  <div class="login-links">
-    <%= render "devise/shared/links" %>
-  </div>
+
 </div>

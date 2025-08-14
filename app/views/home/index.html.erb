@@ -1,0 +1,108 @@
+
+<style>
+    .home-bg {
+        min-height: 60vh;
+        background: #f8fbff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .home-card-container {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 24px rgba(0, 60, 120, 0.10);
+        padding: 32px;
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .home-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #1565c0;
+        text-align: center;
+        margin-bottom: 32px;s
+    }
+    .card-grid {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .card {
+        background: #f3f6fd;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(21,101,192,0.08);
+        padding: 24px 20px;
+        width: 280px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    .card-icon {
+        background: #1976d2;
+        border-radius: 50%;
+        padding: 12px;
+        margin-bottom: 18px;
+        color: #fff;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1976d2;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+    .card-desc {
+        color: #444;
+        font-size: 1rem;
+        margin-bottom: 18px;
+        text-align: center;
+    }
+    .card-link {
+        display: block;
+        width: 100%;
+        background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding: 10px 0;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(21,101,192,0.08);
+        transition: background 0.2s;
+        margin-top: 8px;
+    }
+    .card-link:hover {
+        background: linear-gradient(90deg, #1565c0 0%, #1976d2 100%);
+    }
+</style>
+
+<div class="home-bg">
+    <div class="home-card-container">
+        <h1 class="home-title">Bem-vindo ao SysQuiz</h1>
+        <div class="card-grid">
+            <!-- Card Aluno -->
+            <div class="card">
+                <div class="card-icon">🎓</div>
+                <div class="card-title">Aluno</div>
+                <div class="card-desc">Acesse como aluno para responder quizzes e acompanhar seu desempenho.</div>
+                <a href="<%= new_aluno_session_path %>" class="card-link">Login como Aluno</a>
+            </div>
+            <!-- Card Usuário -->
+            <div class="card">
+                <div class="card-icon">👤</div>
+                <div class="card-title">Usuário</div>
+                <div class="card-desc">Acesse como usuário para gerenciar quizzes e visualizar relatórios.</div>
+                <a href="<%= new_user_session_path %>" class="card-link">Login como Usuário</a>
+            </div>
+        </div>
+    </div>
+</div>
