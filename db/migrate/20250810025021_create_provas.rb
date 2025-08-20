@@ -5,6 +5,7 @@ class CreateProvas < ActiveRecord::Migration[8.0]
   t.text :descrica
   t.datetime :data_inicio
   t.datetime :data_fim
+  t.time :tempo_prova
   t.references :instituica, null: false, foreign_key: true
 
       t.timestamps

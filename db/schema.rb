@@ -79,12 +79,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_11_131000) do
     t.text "descricao"
     t.datetime "data_inicio"
     t.datetime "data_fim"
+    t.time "tempo_prova"
     t.bigint "instituica_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tempo_limite", default: 120, null: false
-    t.datetime "inicio"
-    t.datetime "fim"
     t.index ["instituica_id"], name: "index_provas_on_instituica_id"
   end
 
