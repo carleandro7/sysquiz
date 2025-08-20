@@ -9,8 +9,6 @@
         <th>ID</th>
         <th>Título</th>
         <th>Descrição</th>
-        <th>Escola</th>
-        <th>Série</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -20,8 +18,6 @@
           <td><%= prova.id %></td>
           <td><%= prova.titulo %></td>
           <td><%= prova.descricao %></td>
-          <td><%= prova.escola&.nome %></td>
-          <td><%= prova.serieano&.nome %></td>
           <td>
             <%= link_to 'Ver', admin_prova_path(prova), class: 'btn btn-sm btn-primary' %>
             <%= link_to 'Editar', edit_admin_prova_path(prova), class: 'btn btn-sm btn-warning' %>

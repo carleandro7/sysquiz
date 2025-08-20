@@ -4,8 +4,8 @@
     <%= form.text_field :titulo, class: 'form-control', required: true %>
   </div>
   <div class="mb-3">
-    <%= form.label :descrica, 'Descrição', class: 'form-label' %>
-    <%= form.text_area :descrica, class: 'form-control', rows: 3 %>
+    <%= form.label :descricao, 'Descrição', class: 'form-label' %>
+    <%= form.text_area :descricao, class: 'form-control', rows: 3 %>
   </div>
 
   <h4 class="mt-4">Questões</h4>
@@ -18,12 +18,8 @@
     </div>
   </div>
   <div class="mb-3">
-    <%= form.label :escola_id, 'Escola', class: 'form-label' %>
-    <%= form.collection_select :escola_id, Escola.all, :id, :nome, { prompt: 'Selecione a escola' }, class: 'form-select', required: true %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :serieano_id, 'Série', class: 'form-label' %>
-    <%= form.collection_select :serieano_id, Serieano.all, :id, :nome, { prompt: 'Selecione a série' }, class: 'form-select', required: true %>
+  <%= form.label :serieano_ids, 'Séries', class: 'form-label' %>
+  <%= form.collection_select :serieano_ids, Serieano.all, :id, :nome, { prompt: 'Selecione as séries' }, { class: 'form-select', multiple: true, required: true } %>
   </div>
   <%= form.submit class: 'btn btn-success' %>
 <% end %>
