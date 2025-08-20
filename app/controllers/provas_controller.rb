@@ -65,6 +65,6 @@ class ProvasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def prova_params
-      params.expect(prova: [ :titulo, :descricao, :data_inicio, :data_fim, :tempo_prova, :instituica_id ])
+      params.expect(prova: [ :titulo, :descricao, :data_inicio, :data_fim, :tempo_limite, :instituica_id ])
     end
 end

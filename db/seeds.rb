@@ -45,7 +45,7 @@ end
     descricao: "Prova gerada automaticamente número #{p+1}",
     instituica: instituica,
     data_inicio: 1.day.ago,
-  tempo_prova: Time.parse("01:00:00"),
+    tempo_limite: 3,
     data_fim: 7.days.from_now
   )
   SerieanoProva.create!(prova: prova, serieano: serieano)
@@ -117,7 +117,7 @@ alunos = []
 end
 
 # Provas
-prova = Prova.find_or_create_by!(titulo: "Quiz de Ciências", descricao: "Perguntas sobre ciências gerais", instituica: instituica, data_inicio: 2.days.ago, tempo_prova: Time.parse("01:00:00"), data_fim: 5.days.from_now)
+prova = Prova.find_or_create_by!(titulo: "Quiz de Ciências", descricao: "Perguntas sobre ciências gerais", instituica: instituica, data_inicio: 2.days.ago, tempo_limite: 3, data_fim: 5.days.from_now)
 
 # Questões
 Questao.find_or_create_by!(prova: prova, instituica: instituica, enuciado: "Qual é o planeta mais próximo do Sol?", letra_a: "Terra", letra_b: "Vênus", letra_c: "Marte", letra_d: "Mercúrio", letra_e: "Júpiter", alternativa_correta: "D")

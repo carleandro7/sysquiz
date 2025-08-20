@@ -28,8 +28,6 @@ class ProvalunosController < ApplicationController
       redirect_to aluno_dashboard_path, alert: 'Você já respondeu esta prova e não pode mais visualizá-la.'
       return
     end
-    puts "teste"
-    Rails.logger.info @provaluno.inspect
   end
 
   # POST /provalunos or /provalunos.json
@@ -66,10 +64,10 @@ class ProvalunosController < ApplicationController
       redirect_to aluno_dashboard_path, alert: 'Você já respondeu esta prova e não pode mais visualizá-la.'
       return
     end
-    # Impede salvar após o tempo limite
-    tempo_limite = @provaluno.prova.tempo_limite || 60
+    # Impede salvar após o tempo limite (em minutos)
+    tempo_limite = @provaluno.prova.tempo_limite || 120 # minutos
     inicio = @provaluno.inicio || Time.current
-    tempo_decorrido = ((Time.current - inicio) / 60).to_i
+    tempo_decorrido = ((Time.current - inicio) / 60).to_i # minutos
     if tempo_decorrido > tempo_limite
       redirect_to aluno_dashboard_path, alert: 'Tempo da prova esgotado! Apenas as respostas já salvas foram consideradas.'
       return

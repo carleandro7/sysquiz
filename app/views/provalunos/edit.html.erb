@@ -9,7 +9,7 @@
     </div>
   <% else %>
     <div class="dashboard-title" style="margin-top:2em;">
-      <span style="font-size:2.2rem;vertical-align:middle;">&#128221;</span> Responder Prova: <%= @provaluno.prova.titulo %>
+      <span style="font-size:2.2rem;vertical-align:middle;">&#128221;</span><h2> Responder Prova: <%= @provaluno.prova.titulo %></h2>§
     </div>
     <div class="dashboard-card aluno-prova-card" style="max-width:1100px;margin:2em auto 2em auto;">
       <div id="cronometro-prova" data-inicio="<%= (@provaluno.inicio || Time.current).iso8601 %>">
@@ -47,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
   if (!cronometroDiv) return;
   var timerSpan = document.getElementById("timer-prova");
   var inicio = new Date(cronometroDiv.dataset.inicio);
+  // Tempo limite da prova (em minutos)
+  var tempoLimiteMin = <%= @provaluno.prova.tempo_limite %>;
+  var tempoLimiteSegundos = tempoLimiteMin * 60;
+  var encerrado = false;
   function updateTimer() {
     var agora = new Date();
     var decorrido = Math.floor((agora - inicio) / 1000);
@@ -57,6 +61,37 @@ document.addEventListener("DOMContentLoaded", function() {
       (horas < 10 ? '0' : '') + horas + ':' +
       (min < 10 ? '0' : '') + min + ':' +
       (seg < 10 ? '0' : '') + seg;
+    // Últimos 2 minutos: vermelho piscando
+    var restante = tempoLimiteSegundos - decorrido;
+    if (restante <= 120 && restante > 0) {
+      if (typeof window._cronometroPisca === 'undefined') {
+        window._cronometroPisca = setInterval(function() {
+          if (timerSpan.style.color === 'rgb(231, 76, 60)') {
+            timerSpan.style.color = '#fff';
+            timerSpan.style.background = '#e74c3c';
+          } else {
+            timerSpan.style.color = '#e74c3c';
+            timerSpan.style.background = '#fff';
+          }
+        }, 500);
+      }
+    } else {
+      timerSpan.style.color = '#000';
+      timerSpan.style.background = 'transparent';
+      if (window._cronometroPisca) {
+        clearInterval(window._cronometroPisca);
+        window._cronometroPisca = undefined;
+      }
+    }
+    if (!encerrado && decorrido >= tempoLimiteSegundos) {
+      encerrado = true;
+      timerSpan.textContent = 'Tempo esgotado! Enviando...';
+      timerSpan.style.color = '#e74c3c';
+      timerSpan.style.background = '#fff';
+      alert('Tempo da prova esgotado! Suas respostas serão enviadas automaticamente.');
+      var form = cronometroDiv.querySelector('form');
+      if(form) form.submit();
+    }
   }
   updateTimer();
   setInterval(updateTimer, 1000);
