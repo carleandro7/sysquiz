@@ -103,7 +103,7 @@
       <% @ranking.each_with_index do |r, idx| %>
         <tr class="<%= 'top1' if idx==0 %><%= ' top2' if idx==1 %><%= ' top3' if idx==2 %>">
           <td><b><%= idx+1 %></b></td>
-          <td style="text-align:left;"><%= r[:aluno].nome %></td>
+          <td style="text-align:left;"><%= r[:aluno].username %></td>
           <td><%= r[:corretas] %></td>
           <td><%= r[:total] %></td>
           <td><span class="ranking-total"><%= r[:percentual] %></span></td>
