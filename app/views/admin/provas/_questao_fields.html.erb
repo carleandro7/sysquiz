@@ -1,7 +1,13 @@
 <div class="nested-fields border rounded p-3 mb-3 bg-light">
   <div class="mb-2">
   <%= f.label :enuciado, 'Enunciado', class: 'form-label' %>
-  <%= f.text_area :enuciado, class: 'form-control', required: true, rows: 4, placeholder: 'Você pode colar imagens, usar <b>negrito</b>, etc. (HTML permitido)' %>
+  <%= f.text_area :enuciado, class: 'form-control', required: true, rows: 4, placeholder: 'Você pode colar imagens, usar <b>negrito</b>, etc. (HTML permitido)', id: "editor_#{f.object_id}" %>
+  <script>
+    if (window.CKEDITOR) {
+      CKEDITOR.config.versionCheck = false;
+      CKEDITOR.replace('editor_<%= f.object_id %>');
+    }
+  </script>
   </div>
   <div class="row">
     <div class="col">
