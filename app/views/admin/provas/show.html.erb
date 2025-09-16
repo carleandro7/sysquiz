@@ -6,4 +6,30 @@
     <%= link_to 'Editar', edit_admin_prova_path(@prova), class: 'btn btn-warning' %>
     <%= link_to 'Voltar', admin_provas_path, class: 'btn btn-secondary' %>
   </div>
+
+  <h2 class="mt-5">Resultados dos Alunos</h2>
+  <% agrupados = @prova.provalunos.includes(aluno: [:escola, :serieano]).group_by { |pl| [pl.aluno.escola.nome, pl.aluno.serieano.nome] } %>
+  <% agrupados.each do |(escola, serie), alunos| %>
+    <h4 class="mt-4">Escola: <%= escola %> | Série: <%= serie %></h4>
+    <table class="table table-bordered table-hover bg-white">
+      <thead>
+        <tr>
+          <th>Aluno</th>
+          <th>Porcentagem de Acertos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% alunos.each do |pl| %>
+          <% questoes = Provaquestao.where(prova: @prova, aluno: pl.aluno) %>
+          <% total = questoes.count %>
+          <% acertos = questoes.select { |q| q.resposta == q.questao.alternativa_correta }.count %>
+          <% porcentagem = total > 0 ? ((acertos.to_f / total) * 100).round(2) : 0 %>
+          <tr>
+            <td><%= pl.aluno.username %></td>
+            <td><%= porcentagem %> %</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
