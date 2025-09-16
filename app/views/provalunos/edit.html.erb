@@ -20,7 +20,7 @@
         <ol style="padding-left:0;">
           <% @provaquestaos.each do |pq| %>
             <li style="margin-bottom:1.5em;list-style:decimal inside;">
-              <strong><%= pq.questao.enuciado %></strong>
+              <%= raw pq.questao.enuciado %>
               <div style="margin-top:0.5em;">
                 <% (pq.embaralhada || %w[a b c d e].select { |l| pq.questao.send("letra_#{l}").present? }.join).chars.each do |letra| %>
                   <% alternativa = pq.questao.send("letra_#{letra}") %>

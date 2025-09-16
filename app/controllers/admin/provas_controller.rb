@@ -7,7 +7,9 @@ class Admin::ProvasController < ApplicationController
     @provas = Prova.all
   end
 
-  def show; end
+  def show
+    @agrupados = @prova.provalunos.includes(aluno: [:escola, :serieano]).group_by { |pl| [pl.aluno.escola.nome, pl.aluno.serieano.nome] }
+  end
 
   def new
     @prova = Prova.new
