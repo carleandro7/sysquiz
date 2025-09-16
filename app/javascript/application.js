@@ -1,7 +1,11 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-
-import "controllers/application"
 import "@hotwired/turbo-rails"
-import "@rails/ujs"
 import "controllers"
+import "cocoon-js"
+import $ from "jquery";
+window.$ = $;
+window.jQuery = $;
+import * as ActiveStorage from "@rails/activestorage"
 
+
+ActiveStorage.start()

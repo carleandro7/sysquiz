@@ -42,7 +42,7 @@ class Admin::ProvasController < ApplicationController
     @prova = Prova.find(params[:id])
   end
   def prova_params
-    params.require(:prova).permit(:titulo, :descrica, :escola_id,
+    params.require(:prova).permit(:titulo, :descricao, :escola_id,
       serieano_ids: [],
       questaos_attributes: [
         :id, :enuciado, :letra_a, :letra_b, :letra_c, :letra_d, :letra_e, :alternativa_correta, :_destroy
