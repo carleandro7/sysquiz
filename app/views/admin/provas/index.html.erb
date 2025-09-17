@@ -9,7 +9,9 @@
         <th>ID</th>
         <th>Título</th>
         <th>Descrição</th>
-        <th>Ações</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -18,11 +20,9 @@
           <td><%= prova.id %></td>
           <td><%= prova.titulo %></td>
           <td><%= prova.descricao %></td>
-          <td>
-            <%= link_to 'Ver', admin_prova_path(prova), class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Editar', edit_admin_prova_path(prova), class: 'btn btn-sm btn-warning' %>
-            <%= button_to 'Excluir', admin_prova_path(prova), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
-          </td>
+          <td><%= link_to 'Ver', admin_prova_path(prova), class: 'btn btn-sm btn-primary me-2' %> </td>
+          <td><%= link_to 'Editar', edit_admin_prova_path(prova), class: 'btn btn-sm btn-warning me-2' %> </td>
+          <td><%= button_to 'Excluir', admin_prova_path(prova), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %> </td>
         </tr>
       <% end %>
     </tbody>
