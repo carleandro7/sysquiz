@@ -1,4 +1,14 @@
 <%= form_with(model: [:admin, prova], local: true, class: 'mt-3', data: { turbo: false }) do |form| %>
+  <% if prova.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>Erros ao salvar:</h5>
+      <ul>
+        <% prova.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="mb-3">
     <%= form.label :titulo, 'Título', class: 'form-label' %>
     <%= form.text_field :titulo, class: 'form-control', required: true %>

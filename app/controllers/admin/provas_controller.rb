@@ -19,10 +19,11 @@ class Admin::ProvasController < ApplicationController
 
   def create
     @prova = Prova.new(prova_params)
+    @prova.instituica_id = current_user.instituica_id
     if @prova.save
       redirect_to admin_prova_path(@prova), notice: "Prova criada com sucesso."
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -30,7 +31,7 @@ class Admin::ProvasController < ApplicationController
     if @prova.update(prova_params)
       redirect_to admin_prova_path(@prova), notice: "Prova atualizada com sucesso."
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
