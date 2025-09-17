@@ -1,4 +1,5 @@
 
+
 class Aluno < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -8,8 +9,9 @@ class Aluno < ApplicationRecord
   belongs_to :escola
   belongs_to :serieano
 
-  has_many :provalunos
+  has_many :provalunos, dependent: :destroy
   has_many :provas, through: :provalunos
+  has_many :provaquestaos, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
 end

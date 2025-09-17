@@ -21,7 +21,7 @@
           <td>
             <%= link_to 'Ver', admin_prova_path(prova), class: 'btn btn-sm btn-primary' %>
             <%= link_to 'Editar', edit_admin_prova_path(prova), class: 'btn btn-sm btn-warning' %>
-            <%= link_to 'Excluir', admin_prova_path(prova), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
+            <%= button_to 'Excluir', admin_prova_path(prova), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
           </td>
         </tr>
       <% end %>
