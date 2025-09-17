@@ -29,6 +29,7 @@ class Admin::ProvasController < ApplicationController
   end
 
   def update
+    @prova.questaos.each { |q| q.instituica_id = current_user.instituica_id }
     if @prova.update(prova_params)
       redirect_to admin_prova_path(@prova), notice: "Prova atualizada com sucesso."
     else
@@ -49,7 +50,7 @@ class Admin::ProvasController < ApplicationController
     params.require(:prova).permit(:titulo, :descricao, :escola_id,
       serieano_ids: [],
       questaos_attributes: [
-        :id, :enuciado, :letra_a, :letra_b, :letra_c, :letra_d, :letra_e, :alternativa_correta, :_destroy
+        :id, :enuciado, :letra_a, :letra_b, :letra_c, :letra_d, :letra_e, :alternativa_correta, :instituica_id, :_destroy
       ]
     )
   end
