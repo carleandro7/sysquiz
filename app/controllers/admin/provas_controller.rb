@@ -20,6 +20,7 @@ class Admin::ProvasController < ApplicationController
   def create
     @prova = Prova.new(prova_params)
     @prova.instituica_id = current_user.instituica_id
+    @prova.questaos.each { |q| q.instituica_id = current_user.instituica_id }
     if @prova.save
       redirect_to admin_prova_path(@prova), notice: "Prova criada com sucesso."
     else
