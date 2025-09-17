@@ -6,7 +6,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@nathanvda/cocoon@1.2.14/cocoon.js"></script>
     <%= yield :head %>
   </head>
   <body class="bg-light">
@@ -15,6 +17,7 @@
       <%= yield %>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
+   
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
   </body>
 </html>
