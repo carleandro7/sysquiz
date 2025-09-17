@@ -31,6 +31,7 @@
       <%= f.text_field :letra_e, class: 'form-control' %>
     </div>
   </div>
+  <%= f.hidden_field :instituica_id, value: current_user.instituica_id %>
   <div class="mt-2">
     <%= f.label :alternativa_correta, 'Alternativa Correta', class: 'form-label' %>
     <%= f.select :alternativa_correta, [['A','a'],['B','b'],['C','c'],['D','d'],['E','e']], {}, class: 'form-select' %>
