@@ -1,151 +1,324 @@
 
 # ...existing code...
 
-# Instituições
-instituica = Instituica.find_or_create_by!(nome: "Instituto Central")
 
-# Escolas
-escola = Escola.find_or_create_by!(nome: "Escola Alpha", codinep: "12345678", instituica: instituica)
-
-# Séries/Ano
-serieano = Serieano.find_or_create_by!(nome: "9º Ano", escola: escola)
-
-# Usuário admin
-User.find_or_create_by!(email: "admin@sysquiz.com") do |u|
-  u.nome = "Administrador"
-  u.password = "admin123"
-  u.password_confirmation = "admin123"
-  u.instituica = instituica
-end
-
-# Alunos fixos
-Aluno.find_or_create_by!(username: "joao.silva", email: "joao.silva@sysquiz.com", nome: "João da Silva", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-  a.password = "aluno123"
-  a.password_confirmation = "aluno123"
-end
-Aluno.find_or_create_by!(username: "maria.souza", email: "maria.souza@sysquiz.com", nome: "Maria Souza", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-  a.password = "aluno123"
-  a.password_confirmation = "aluno123"
-end
-
-# === NOVOS DADOS DE SEED ===
-# Cria 10 alunos
-alunos = []
-10.times do |i|
-  alunos << Aluno.find_or_create_by!(username: "aluno#{i+1}", email: "aluno#{i+1}@sysquiz.com", nome: "Aluno #{i+1}", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-    a.password = "aluno123"
-    a.password_confirmation = "aluno123"
+# Alunos em massa para instituica_id=1 e escola_id=1
+alunos_lista = [
+  ["Heloiza Caroline Amorim da Silva", "1013093"],
+  ["Vinícius Alves Batista dos Santos", "1003143"],
+  ["Welbe Miranda Alves", "1019347"],
+  ["Maria Fernanda Nunes da Silva", "1000251"],
+  ["Laiane Alves Bezerra", "1000220"],
+  ["Lara Livya Alves de Sousa", "1000226"],
+  ["Vivian Brauna Souza", "1000114"],
+  ["Nathily Sophya da Silva", "1006122"],
+  ["Yasmin Ribeiro Soares", "1002909"],
+  ["Camily da Silva Alves", "1000358"],
+  ["Bianca Mendes da Silva", "1000222"],
+  ["Dafne Silva Barreira", "1007053"],
+  ["Yarla Bruna da Cruz Sousa Silva", "1000183"],
+  ["Leandro Lopes de Oliveira", "1000295"],
+  ["João Pedro Lustosa Queirós", "1004306"],
+  ["João Augusto Santos Wolter", "1006127"],
+  ["Heloysa Semírames Miranda", "1005885"],
+  ["Ilana Ferreira Sousa", "1000335"],
+  ["Mykelly Santos Lima", "1000064"],
+  ["Leandro Santos Lebens", "1010826"],
+  ["João Wesley Machado dos Santos", "1006112"],
+  ["Amanda Fonseca Moura", "1000187"],
+  ["Keliane Barbosa Barreto", "1012752"],
+  ["Raul Lima Ferreira", "1000033"],
+  ["Ângelo Gabriel Andrade Campos", "1010748"],
+  ["Carlos Eduardo Cavalcante Rosal", "1000118"],
+  ["Laís Barros da Silva", "1000174"],
+  ["Alice Nones da Silva", "1000235"],
+  ["Victor Emanuel Teles Miranda", "1000211"],
+  ["Letícia Neres de Oliveira", "1000188"],
+  ["Marcelo Araujo Rodrigues", "1000275"],
+  ["Júlio César Lima Cabral", "1010086"],
+  ["Alan Moura Rodrigues", "1013110"],
+  ["Mágilla Cavalcante Rodrigues", "1004297"],
+  ["Maria Eduarda Fernandes Ribeiro", "1000037"],
+  ["Gustavo de Sousa Alves", "1000202"],
+  ["Humberto Neres de Jesus Filho", "1000128"],
+  ["Abraão Miranda de Sousa", "1004270"],
+  ["Tainara Lucas de Sousa", "1010825"],
+  ["Maria Clara Silva Alves", "1000173"],
+  ["Mayra Lorrany Viana Silva", "1004556"],
+  ["Jasmin Dias Alves", "1000063"],
+  ["Anna Clara Elias de Sousa Gomes", "1007301"],
+  ["Lamarckyanny Kelly de Sousa Dias", "1009788"],
+  ["Beatriz Alves da Costa", "1000096"],
+  ["Maik Yan da Silva Ferreira", "1003875"],
+  ["Anna Beatriz Elias de Sousa Gomes", "1007302"],
+  ["Maria Júlia Martins Batista", "1008006"],
+  ["Joel Santos Sousa", "1006121"],
+  ["Gleyson Assis Lopes", "1000348"],
+  ["Gabriel Alcinei Rodrigues Santana", "1000089"],
+  ["Ritchelly Fernandes Jansen", "1015348"],
+  ["Davi Sousa da Silva", "1000107"],
+  ["Débora Silva Ferreira", "1015338"],
+  ["João Felipe Silva Barreto", "1001326"],
+  ["Marlon da Silva Alves", "1000432"],
+  ["Ruan Nunes Sousa Luz", "1002907"],
+  ["Wanderson da Silva Sousa", "1000207"],
+  ["Miguel Andrade Martins Rocha", "1000087"],
+  ["Luis Otávio Santos Sousa", "1003148"],
+  ["Jhenifer Nunes da Costa", "1010827"],
+  ["Maria Clara Borges Oliveira de Almeida", "1000268"],
+  ["Ryan Santos Rocha", "1002906"],
+  ["Airton Alves Figueiredo Neto", "1006116"],
+  ["Pedro Otávio Alves de Almeida", "1000055"],
+  ["Robert Thaylon dos Santos Araujo", "1000100"],
+  ["Milton Oliveira Soares", "1000208"],
+  ["Robert Fonseca Barros", "1000104"],
+  ["Leomar Fonseca da Silva Filho", "1000040"],
+  ["Micaela de Souza Silva", "1009681"],
+  ["Victor Eduardo Fonseca Matos", "1015350"],
+  ["Luiz Otávio Maia Rodrigues", "1000437"],
+  ["Lucas Kauan Nunes da Costa", "1006108"],
+  ["Francisco Teves Lemos de Sousa", "1000131"],
+  ["Edilany Soares Nunes da Silva", "1004290"],
+  ["José Junior Kaywan Ferreira da Silva", "1006128"],
+  ["Rafael Sousa Pereira", "1015331"],
+  ["Tiago Alves da Silva", "1010833"],
+  ["Francisco de Oliveira Nunes", "1000091"],
+  ["Yngrid Maria Lopes Vogado", "1011080"],
+  ["Emanuelle Pires Ferreira", "1004309"],
+  ["Poliana Fonseca de Sousa Barreto", "1015342"],
+  ["Miguel Nunes dos Santos", "1004734"],
+  ["Ana Flávia Nunes Silva dos Santos", "1016104"],
+  ["Victor Gabriel Carvalho Vieira", "1006962"],
+  ["Gabriel Xavier de Sousa", "1000051"],
+  ["Cristiano Maia da Costa", "1010824"],
+  ["Riquelme Felipe Lopes dos Santos", "1000176"],
+  ["Alexsandro Santos Lopes", "1000289"],
+  ["Halef Magalhães dos Santos", "1006124"],
+  ["Hítalo Lisbôa de Brito", "1006315"],
+  ["Breno Matheus Barreto do Ó", "1000205"],
+  ["Miguel Amorim Souza", "1000261"],
+  ["Augusto Nunes de Vasconcelos", "1010861"],
+  ["Yalla Sofia de Sousa Fonseca", "1000172"],
+  ["Isaque Silva Evangelista", "1015356"],
+  ["João Ricardo dos Reis de Moura", "1004323"],
+  ["Railton Guimarães da Silva Filho", "1000105"],
+  ["Paulo Emanuel Lopes dos Santos", "1000065"],
+  ["Gabriel Nunes dos Santos", "1000058"],
+  ["Carlos Henrique Dias Alves", "1010792"],
+  ["Ediglaine Dias de Sousa", "1002655"],
+  ["Larícia Pereira Santos", "1002668"],
+  ["Maria Taticleia Batista Araujo", "1002761"],
+  ["Eva Maria de Sousa Dias", "1002679"],
+  ["Ariadne Santos Marques", "1002654"],
+  ["Fabrício Nascimento Holanda", "1002718"],
+  ["Eduardo Juchem", "1002660"],
+  ["Aldimir Santos Dias", "1002652"],
+  ["Gabriel Vogado Holanda", "1002677"],
+  ["Guilherme dos Santos Pereira", "1002661"],
+  ["Iany Fonseca dos Santos", "1002757"],
+  ["Taiane Pereira dos Santos", "1002713"],
+  ["Vandeclesio Bezerra do Nascimento", "1002712"],
+  ["Marcos Vinicius Barreto Vogado", "1002662"],
+  ["Cleiton Dias Maciel", "1002064"],
+  ["Maria das Mercês Melo de Sousa", "1001479"],
+  ["Carina dos Santos Batista", "1002066"],
+  ["AMARILIS CATUABA NUNES", "1001176"],
+  ["João Victor Rosal Lemos", "1001579"],
+  ["Clemilson Costa de Sousa", "1001587"],
+  ["Heloisa Gabrielle Santos Marques", "1001476"],
+  ["Jaqueline da Silva Alves", "1001582"],
+  ["Eloar Cristina Santos Soares", "1001583"],
+  ["Francisco de Assis da Silva Batista", "1001581"],
+  ["João Gabriel Fernandes Silva", "1001472"],
+  ["Otávio Alves Dias", "1001473"],
+  ["Sara Lorrany da Silva Batista", "1001580"],
+  ["Isabel Vitória Santos da Silva", "1001429"],
+  ["Thaine Pereira Ribeiro", "1001584"],
+  ["Ágatha Lorena Santos Sabino", "1017521"],
+  ["Caio Tavares Dias", "1001468"],
+  ["NATHÁLIA SANTOS MONTEIRO", "1014857"],
+  ["JOÃO HENRIQUE SANTOS DE SOUSA", "1000031"],
+  ["LUIS OTAVIO DOS SANTOS ALENCAR", "1005706"],
+  ["CARLOS DANIEL DOS SANTOS ALVES", "1010020"],
+  ["LIVIAN MENDES FALCÃO", "1005538"],
+  ["RUAN PEREIRA DE SOUSA OLIVEIRA", "1010634"],
+  ["YNGRIDY SANTOS PEREIRA", "1000025"],
+  ["JULLIO CÉZAR ALVES DO LAGO VOGADO", "1000006"],
+  ["ANTONIO DOS SANTOS FERNANDES", "1011473"],
+  ["DOUGLAS GABRIEL RAMOS DA LUZ", "1005768"],
+  ["EMILLY VITÓRIA JACOBINA FONSECA", "1013126"],
+  ["IASMIM DA COSTA", "1000035"],
+  ["PAULA FERNANDA DE SOUSA CONCEIÇÃO", "1017635"],
+  ["LARA SOFIA DA COSTA PAULINO", "1014830"],
+  ["LANA BEZERRA SOUSA", "1005406"],
+  ["LUAN SANTANA DE OLIVEIRA BATISTA", "1000020"],
+  ["FELIPE ARAGÃO DA ROCHA", "1005570"],
+  ["LAYS FEITOSA DE FRANÇA", "1005655"],
+  ["JOSÉ JOAQUIM GOMES DOS SANTOS", "1005947"],
+  ["KAUÃ CLEMENTINO DA SILVA", "1000009"],
+  ["BRENO AGUIAR DA SILVA", "1000008"],
+  ["VALDIANE BATISTA PEREIRA", "1000011"],
+  ["BRUNO FELIPE MARTINS DE LIMA", "1000018"],
+  ["ANDRESSA DEMLEITNER VIEIRA", "1000001"],
+  ["LEVI SOUSA DE LIMA", "1005481"],
+  ["JOÃO LUCAS SANTOS RIBEIRO", "1000024"],
+  ["DERIVAN DIAS PEREIRA", "1001080"],
+  ["MYKELLY SANTOS LIMA", "1017652"],
+  ["CARMINA VITÓRIA ALVES ARAUJO", "1010174"],
+  ["CLARA LORRANY FONSECA BORGES", "1001068"],
+  ["DAVID FONSECA DIAS", "1001076"],
+  ["DALVAN DIAS PEREIRA", "1001069"],
+  ["FERNANDO VASCONCELOS DE OLIVEIRA", "1001084"],
+  ["MIRELA BARBOSA DO NASCIMENTO", "1001088"],
+  ["AMANDA PEREIRA GOMES", "1001065"],
+  ["DENILTON DIAS DA SILVA", "1001078"],
+  ["GILDEMAR SOARES BRANDÃO NETO", "1001117"],
+  ["EDILENE DIAS DOS SANTOS", "1001081"],
+  ["EMILY NOGUEIRA COSTA", "1001082"],
+  ["GEOVANA SOUSA BRITO", "1001083"],
+  ["LUZINEIDE PEREIRA DO LAGO", "1001087"],
+  ["SAMUEL SILVA DE ARAÚJO", "1001091"],
+  ["VINICIUS GABRIEL DE SOUSA BRANDÃO", "1001093"],
+  ["WILLIAN BARBOSA OLIVEIRA", "1001096"],
+  ["MICHAEL BARBOSA DO   NASCIMENTO", "1000659"],
+  ["VITÓRIA OLIVEIRA DOS SANTOS", "1001095"],
+  ["MIKAEL FONSECA DA SILVA", "1005097"],
+  ["ROSELY CARVALHO VASCONCELOS", "1001090"],
+  ["WANDERSON ALVES MANGUEIRA", "1009739"],
+  ["Anna Luyza Soares Souza", "1014843"],
+  ["RUAN MIRANDA FERNANDES", "1017418"],
+  ["MARIA LUIZA MARQUES DA SILVA", "1009759"],
+  ["MIRIANE MARQUES SANTOS", "1007912"],
+  ["WELBE MIRANDA ALVES", "1007909"],
+  ["PEDRO GABRIEL ALVES RUARO", "1005388"],
+  ["YANNA GABRIELLY BARBOSA RIBEIRO", "1005210"],
+  ["ORLANDO DE MORAIS DIAS FILHO", "1005473"],
+  ["ANNA CRISTINA PEREIRA LIMA", "1005203"],
+  ["THAYLA DE SOUSA FEITOSA", "1005731"],
+  ["CARLOS AUGUSTO CERQUEIRA DE NEGREIROS", "1014914"],
+  ["PEDRO ARTHUR SOARES SILVA", "1014942"],
+  ["GLENDA NICOLLY CAVALCANTE MOURA", "1019612"],
+  ["JOÃO RICARDO DOS REIS", "1016605"],
+  ["LUDMYLA FERNANDES NUNES", "1005341"],
+  ["VITÓRIA FERNANDA LISBOA SANTOS", "1005204"],
+  ["ANA JÚLIA DE OLIVEIRA SANTIAGO", "1004749"],
+  ["ISAAC MATIAS DE SOUSA", "1005386"],
+  ["EVANDRO MARQUES GABRIEL FILHO", "1004739"],
+  ["GABRIEL JUREMA CASCIMIRO", "1005349"],
+  ["KELLY BIANCA GOMES BEZERRA", "1005413"],
+  ["BEATRIZ MESSIAS FEITOSA", "1005360"],
+  ["REBECA DE JESUS LOPES", "1010103"],
+  ["THYAGO MEDEIROS BARBOSA", "1009799"],
+  ["MARIA CLARA ALVES DA COSTA", "1005222"],
+  ["ANA LARA DE SOUSA SIQUEIRA", "1004750"],
+  ["JOAQUIM ALVES RODRIGUES", "1005476"],
+  ["THAISA DIAS VIEIRA", "1010042"],
+  ["SARAH CRISTINA DOS SANTOS SILVA", "1005216"],
+  ["CHRISTIAN GABRIEL SILVEIRA MARQUES", "1005496"],
+  ["FELÍCIA SANTIAGO SOBRINHO", "1005367"],
+  ["LÍVIA MARTINS DA CRUZ", "1005224"],
+  ["DALTON MATIAS RODRIGUES", "1004741"],
+  ["HELOISA LISBOA GARCIA", "1004745"],
+  ["RIAN BRAÚNA FARIAS", "1005217"],
+  ["NELSINO ARAÚJO SOBRINHO FILHO", "1005693"],
+  ["LAURA MACEDO CAMPOS", "1006813"],
+  ["ANTÔNIO LUCAS GUEDES DE SOUSA", "1005345"],
+  ["VÍTOR EMANUEL DE OLIVEIRA SILVA", "1005214"],
+  ["KAIRO EMANUEL MARTINS DOS SANTOS", "1005379"],
+  ["LUCAS VINICIUS PEREIRA SILVA", "1006246"],
+  ["SORAYA SILVA SESTARI", "1005453"],
+  ["NATHAN SANTANA LOPES", "1007261"],
+  ["ADRIEL ALVES SALDANHA", "1004735"],
+  ["MARIA EDUARDA DINIZ SANTIAGO", "1005500"],
+  ["VERIDYANA LAYENE SANTOS DE SOUSA", "1005474"],
+  ["SARAH PIAUILINO OLIVIERI", "1005459"],
+  ["LUIZ OTÁVIO DIAS DA SILVA", "1005449"],
+  ["MARIA EDUARDA VOGADO DIAS", "1005375"],
+  ["DAVI MARTINS GRANJA", "1005442"],
+  ["AYLA MEL DE JESUS SANTOS", "1005516"],
+  ["KAUAN SANTOS IRENE", "1005487"],
+  ["CAROLINE PINHEIRO ALENCAR", "1004737"],
+  ["VÍCTOR EMANUEL DE JESUS OLIVEIRA", "1005409"],
+  ["LÍVIA ALVES CAMELO", "1005227"],
+  ["HENRIQUE MAIA ALVES", "1005353"],
+  ["AMANDA VALENTINA SANTOS ROSAL", "1005846"],
+  ["MARIA CLARA MOURA ALMEIDA", "1005234"],
+  ["SARA FONSECA TOLENTINO COSTA", "1010303"],
+  ["ÍTALO SALDANHA DA SILVA", "1005229"],
+  ["KELY LIMA ROCHA", "1010134"],
+  ["KARLOS ADRYEL RIBEIRO DA SILVA", "1005467"],
+  ["KAIO VÍTOR DIÓGENES MAIA", "1005231"],
+  ["MARIA ISADORA ARAGÃO DOS SANTOS", "1005220"],
+  ["INGRYD DE MORAIS ALVES", "1010060"],
+  ["LARA GABRIELLE PEREIRA DE SOUSA", "1005376"],
+  ["ÂNGELA MARIA CHAVES NUNES", "1012640"],
+  ["LEONARDO GOMES BENICÁ", "1005200"],
+  ["MARIA LÉTICIA  RODRIGUES FALCÃO", "1005468"],
+  ["CARLOS MANOEL SOARES DE SOUZA", "1009085"],
+  ["YOHANNA GOMES SILVA", "1004746"],
+  ["IASMYM HEMILY BATISTA DE SOUZA", "1004747"],
+  ["LUAN CARLOS SILVA BARREIRA", "1005223"],
+  ["GYSELE VOGADO DIAS", "1005344"],
+  ["PEDRO GABRIEL RIBEIRO DA SILVA", "1005528"],
+  ["RAFAEL ALENCAR OLIVEIRA", "1010114"],
+  ["GLADSTONE OLIVEIRA MARQUES", "1005358"],
+  ["THALYTA MATIAS LEMOS PINHEIRO", "1005390"],
+  ["MAURICIO BARRETO DE FREITAS", "1005479"],
+  ["CARLOS DANIEL SOARES RODRIGUES", "1005486"],
+  ["YASMIM SOARES DE SOUSA", "1005209"],
+  ["DOUGLAS HENRIQUE RIBEIRO DA SILVA", "1004742"],
+  ["ALAN GABRIEL SOARES LUSTOSA", "1004736"],
+  ["LUCAS FELIPE NUNES COSTA", "1005373"],
+  ["LEONARDO MIGUEL DE OLIVEIRA DE SOUZA", "1005226"],
+  ["ALBERTO OLIVEIRA DOS SANTOS FILHO", "1005331"],
+  ["THEREZA LYVIA PEREIRA DO NASCIMENTO", "1014789"],
+  ["YURI CHAVES DIAS", "1014780"],
+  ["MARIA JÚLIA DA SILVA BAIÃO", "1005519"],
+  ["JÚLIO CÉSAR ALVES NEVES", "1005372"],
+  ["JOSÉ IGOR RODRIGUES DE JESUS GUEDES", "1005523"],
+  ["VITOR DANIEL NUNES DIÓGENES ROSAL", "1005697"],
+  ["DARANIYE ZEBALLOS  HURTADO", "1014899"],
+  ["MARIÂNGELA SANTOS DIAS", "1015347"],
+  ["João Paulo Andrade de Sousa", "1019353"],
+  ["Lorrany Guimarães Andrade", "1017649"],
+  ["João Pedro Ribeiro Medrado", "1002566"],
+  ["LUIZ FELIPE ARAÚJO DA SILVA", "1002461"],
+  ["Mateus Felipe Rodrigues Pereira da Silva", "1003077"],
+  ["Luis Otavio Campos da Silva", "1002551"],
+  ["Maria Rita Vieira Nunes", "1002563"],
+  ["Wislany Santos Sousa", "1002565"],
+  ["MATILDE  LIMA DUARTE", "1003075"],
+  ["ALANA ALVES DE SOUSA", "1001846"],
+  ["ANDRESSA SOBRINHO MOURATO", "1010781"],
+  ["EMILLY THAWANE MILARINDO FERNANDES", "1001849"],
+  ["WISLEY BENVINDO PEREIRA", "1001862"],
+  ["SARAH MONIQUE MILARINDO SOUSA", "1004890"],
+  ["LÍDIA LOPES DOS REIS", "1001853"],
+  ["MATHEUS BORGES TORRES", "1001856"],
+  ["MURILO MARIANO DA SILVA", "1001857"],
+  ["MARIA CLÁUDIA SANTANA DA ROCHA", "1000029"],
+  ["KETLEY ARAGÃO MELCHIADES LIMA", "1000003"],
+  ["JÚLIA CARVALHO LEITE", "1017205"],
+  ["KALLINE MARTINS DE SOUSA", "1004132"],
+  ["RUAN LIMA DE SOUSA", "1000012"],
+  ["PEDRO RODRIGO MARTINS FONSECA", "1004133"],
+  ["MARIA EDUARDA DO LAGO SANTANA", "1000022"],
+  ["ANY BEATRIZ BENVINDO OLIVEIRA", "1000004"],
+  ["LUIS GABRIEL NUNES BARBOSA DA ROCHA", "1000002"],
+  ["RAFAELA GONÇALVES DOS SANTOS", "1003822"],
+  ["OLAVO FERREIRA DE JESUS", "1000027"],
+  ["LARA BEATRIZ FEITOSA MORAIS", "1005622"],
+  ["KEILLANE TELES DE MATOS", "1004898"],
+  ["JOÃO HÉLIO FERREIRA DA SILVA", "1000014"],
+  ["HELENA MARTINS MEDEIROS", "1000013"],
+  ["FLÁVIA ALVES NUNES", "1005540"],
+  ["MARIA JULLYA COSTA DOS REIS", "1000017"],
+  ["LETHICYA SANTOS CARDOSO", "1012071"]
+]
+alunos_lista.each do |nome, id|
+  Aluno.find_or_create_by!(username: id, email: "#{id}@sysquiz.com", nome: nome, instituica_id: 1, escola_id: 1, serieano_id: 1) do |a|
+    a.password = id
+    a.password_confirmation = id
   end
 end
 
-# Cria 2 provas, cada uma com 10 questões
-2.times do |p|
-  prova = Prova.create!(
-    titulo: "Prova Automática #{p+1}",
-    descricao: "Prova gerada automaticamente número #{p+1}",
-    instituica: instituica,
-    data_inicio: 1.day.ago,
-    tempo_limite: 3,
-    data_fim: 7.days.from_now
-  )
-  SerieanoProva.create!(prova: prova, serieano: serieano)
-  10.times do |q|
-    Questao.create!(
-      prova: prova,
-      instituica: instituica,
-      enuciado: "Questão #{q+1} da Prova #{p+1}",
-      letra_a: "Alternativa A",
-      letra_b: "Alternativa B",
-      letra_c: "Alternativa C",
-      letra_d: "Alternativa D",
-      letra_e: "Alternativa E",
-      alternativa_correta: %w[A B C D E].sample
-    )
-  end
-
-  # Cada aluno responde a prova
-  alunos.each do |aluno|
-    provaluno = Provaluno.create!(prova: prova, aluno: aluno)
-    prova.questaos.each do |questao|
-      resposta = %w[a b c d e].sample
-      Provaquestao.create!(prova: prova, aluno: aluno, questao: questao, resposta: resposta, embaralhada: %w[a b c d e].shuffle.join)
-    end
-  end
-end
-
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-
-
-# Instituições
-instituica = Instituica.find_or_create_by!(nome: "Instituto Central")
-
-# Escolas
-escola = Escola.find_or_create_by!(nome: "Escola Alpha", codinep: "12345678", instituica: instituica)
-
-# Séries/Ano
-serieano = Serieano.find_or_create_by!(nome: "9º Ano", escola: escola)
-
-# Usuário admin
-User.find_or_create_by!(email: "admin@sysquiz.com") do |u|
-  u.nome = "Administrador"
-  u.password = "admin123"
-  u.password_confirmation = "admin123"
-  u.instituica = instituica
-end
-
-# Alunos fixos
-Aluno.find_or_create_by!(username: "joao.silva", email: "joao.silva@sysquiz.com", nome: "João da Silva", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-  a.password = "aluno123"
-  a.password_confirmation = "aluno123"
-end
-Aluno.find_or_create_by!(username: "maria.souza", email: "maria.souza@sysquiz.com", nome: "Maria Souza", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-  a.password = "aluno123"
-  a.password_confirmation = "aluno123"
-end
-
-# === NOVOS DADOS DE SEED ===
-# Cria 10 alunos
-alunos = []
-10.times do |i|
-  alunos << Aluno.find_or_create_by!(username: "aluno#{i+1}", email: "aluno#{i+1}@sysquiz.com", nome: "Aluno #{i+1}", escola: escola, instituica: instituica, serieano_id: serieano.id) do |a|
-    a.password = "aluno123"
-    a.password_confirmation = "aluno123"
-  end
-end
-
-# Provas
-prova = Prova.find_or_create_by!(titulo: "Quiz de Ciências", descricao: "Perguntas sobre ciências gerais", instituica: instituica, data_inicio: 2.days.ago, tempo_limite: 3, data_fim: 5.days.from_now)
-
-# Questões
-Questao.find_or_create_by!(prova: prova, instituica: instituica, enuciado: "Qual é o planeta mais próximo do Sol?", letra_a: "Terra", letra_b: "Vênus", letra_c: "Marte", letra_d: "Mercúrio", letra_e: "Júpiter", alternativa_correta: "D")
-Questao.find_or_create_by!(prova: prova, instituica: instituica, enuciado: "Qual é o maior órgão do corpo humano?", letra_a: "Coração", letra_b: "Fígado", letra_c: "Pele", letra_d: "Pulmão", letra_e: "Cérebro", alternativa_correta: "C")
-
-# Prova exclusiva para João da Silva
-joao = Aluno.find_by(username: "joao.silva")
-if joao
-  prova_joao = Prova.create!(
-    titulo: "Prova Especial João da Silva!",
-    descricao: "Prova exclusiva para o aluno João da Silva.",
-    instituica: instituica,
-    data_inicio: 1.day.ago,
-    data_fim: 7.days.from_now
-  )
-  SerieanoProva.create!(prova: prova_joao, serieano: joao.serieano)
-  # 10 questões para a prova do João
-  10.times do |i|
-    Questao.create!(
-      prova: prova_joao,
-      instituica: instituica,
-      enuciado: "Questão especial #{i+1} para João da Silva!",
-      letra_a: "Alternativa A",
-      letra_b: "Alternativa B",
-      letra_c: "Alternativa C",
-      letra_d: "Alternativa D",
-      letra_e: "Alternativa E",
-      alternativa_correta: %w[A B C D E].sample
-    )
-  end
-end
