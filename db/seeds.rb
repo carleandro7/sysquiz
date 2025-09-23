@@ -315,6 +315,15 @@ alunos_csv = [
   ["1014780","YURI CHAVES DIAS","1014780","1014780","1","ESCOLA MUNICIPAL MARIA ARISTEIA FIGUEIREDO DA FONSECA"]
 ]
 
+# Apaga todos os alunos e zera o contador de IDs
+ActiveRecord::Base.transaction do
+  Aluno.delete_all
+
+  conn = ActiveRecord::Base.connection
+  if conn.respond_to?(:reset_pk_sequence!)
+    conn.reset_pk_sequence!('alunos') # PostgreSQL/SQLite
+  end
+end
 alunos_csv.each do |id, nome, username, password, escola_id, escola_nome|
   escola = Escola.find_or_create_by!(id: escola_id.to_i, instituica_id: 1) do |e|
     e.nome = escola_nome
