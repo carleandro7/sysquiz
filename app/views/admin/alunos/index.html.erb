@@ -10,7 +10,9 @@
         <th>Nome</th>
         <th>Usuário</th>
         <th>Série</th>
-        <th>Ações</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -20,11 +22,9 @@
           <td><%= aluno.nome %></td>
           <td><%= aluno.username %></td>
           <td><%= aluno.serieano&.nome %></td>
-          <td>
-            <%= link_to 'Ver', admin_aluno_path(aluno), class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Editar', edit_admin_aluno_path(aluno), class: 'btn btn-sm btn-warning' %>
-            <%= button_to 'Excluir', admin_aluno_path(aluno), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
-          </td>
+          <td><%= link_to 'Ver', admin_aluno_path(aluno), class: 'btn btn-sm btn-primary' %></td>
+          <td><%= link_to 'Editar', edit_admin_aluno_path(aluno), class: 'btn btn-sm btn-warning' %></td>
+          <td><%= button_to 'Excluir', admin_aluno_path(aluno), method: :delete, data: { turbo_confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
         </tr>
       <% end %>
     </tbody>

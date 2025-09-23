@@ -13,7 +13,7 @@
   </div>
   <div class="mb-3">
     <%= form.label :serieano_id, 'Série', class: 'form-label' %>
-    <%= form.collection_select :serieano_id, Serieano.all, :id, :nome, { prompt: 'Selecione a série' }, class: 'form-select', required: true %>
+    <%= form.collection_select :serieano_id, Serieano.includes(:escola).all, :id, :nome_com_escola, { prompt: 'Selecione a série' }, { class: 'form-select', required: true } %>
   </div>
   <%= form.submit class: 'btn btn-success' %>
 <% end %>
