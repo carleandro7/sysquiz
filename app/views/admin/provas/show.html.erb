@@ -25,7 +25,7 @@
           <% acertos = questoes.select { |q| q.resposta == q.questao.alternativa_correta }.count %>
           <% porcentagem = total > 0 ? ((acertos.to_f / total) * 100).round(2) : 0 %>
           <tr>
-            <td><%= pl.aluno.username %></td>
+            <td><%= pl.aluno.nome %> (<%= pl.aluno.username %>)</td>
             <td><%= porcentagem %> %</td>
           </tr>
         <% end %>
