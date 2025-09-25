@@ -27,7 +27,7 @@
                   <% next if alternativa.blank? %>
                   <div class="form-check" style="margin-bottom:0.5em;">
                     <%= radio_button_tag "provaquestaos[#{pq.id}][resposta]", letra, pq.resposta == letra, class: 'form-check-input', id: "pq_#{pq.id}_#{letra}" %>
-                    <%= label_tag "pq_#{pq.id}_#{letra}", "#{letra.upcase}) #{alternativa}", class: 'form-check-label' %>
+                    <%= label_tag "pq_#{pq.id}_#{letra}", " #{alternativa}", class: 'form-check-label' %>
                   </div>
                 <% end %>
               </div>
