@@ -17,10 +17,16 @@ class Admin::AlunosController < ApplicationController
 
   def create
     @aluno = Aluno.new(aluno_params)
-    if @aluno.save
-      redirect_to admin_aluno_path(@aluno), notice: "Aluno criado com sucesso."
-    else
-      render :new, status: :unprocessable_entity
+    @aluno.instituica_id = current_user.instituica_id if current_user
+    @aluno.email = @aluno.username+"@email.com" if @aluno.email.blank?
+    @aluno.escola_id = @aluno.serieano.escola_id if @aluno.serieano
+    respond_to do |format|
+      if @aluno.save
+        format.html { redirect_to admin_aluno_path(@aluno), notice: "Aluno criado com sucesso." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @aluno.errors, status: :unprocessable_entity }
+      end
     end
   end
 
