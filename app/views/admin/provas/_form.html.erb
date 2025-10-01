@@ -18,6 +18,19 @@
     <%= form.text_area :descricao, class: 'form-control', rows: 3 %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :data_inicio, 'Data e hora de início', class: 'form-label' %>
+    <%= form.datetime_local_field :data_inicio, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :data_fim, 'Data e hora de término', class: 'form-label' %>
+    <%= form.datetime_local_field :data_fim, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= form.label :tempo_limite, 'Tempo limite (horas)', class: 'form-label' %>
+    <%= form.number_field :tempo_limite, class: 'form-control', min: 0, step: 1 %>
+  </div>
+
   <h4 class="mt-4">Questões</h4>
   <div id="questaos">
     <%= form.fields_for :questaos do |questao_form| %>
